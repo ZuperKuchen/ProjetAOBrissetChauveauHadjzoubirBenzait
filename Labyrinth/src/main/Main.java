@@ -3,7 +3,7 @@ package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.ViewFrame;
-
+import model.*;
 
 public class Main extends Application{
 
@@ -16,6 +16,9 @@ public class Main extends Application{
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("Labyrinth");
 		ViewFrame.drawFrame(primaryStage, 16, 16);
+		primaryStage.show();
+		Labyrinth lab = new Labyrinth(0,16,16);
+		ViewFrame.drawLabyrinth(primaryStage, lab.getGraph(), lab.getCellArray(), 16, 16);
 		primaryStage.show();
 		
 		
