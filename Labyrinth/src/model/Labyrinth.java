@@ -98,6 +98,7 @@ public class Labyrinth {
 	public Cell[][] getCellArray() {
 		return cellArray;
 	}
+	
 	public Item[] getItemArray() {
 		return itemArray;
 	}
