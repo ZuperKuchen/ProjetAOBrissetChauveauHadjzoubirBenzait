@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import model.Player;
 
 public class ViewPlayer{
-	private static String imgPath = "../img/player.png";
+	private static String imgPath = "file:img/player.png";
 	private static ImageView imageView;
 	private static Player player = Player.getInstance();
 	
