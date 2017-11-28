@@ -5,7 +5,7 @@ import org.jgrapht.graph.*;
 public class Labyrinth {
 
 	private Graph<Cell,Edge> graph;
-	public Cell[][] cellArray;
+	private Cell[][] cellArray;
 	
 	private int difficulty;
 	private int sizeX;
@@ -95,7 +95,9 @@ public class Labyrinth {
 		return graph;
 	}
 
-
+	public Cell[][] getCellArray() {
+		return cellArray;
+	}
 	public Item[] getItemArray() {
 		return itemArray;
 	}

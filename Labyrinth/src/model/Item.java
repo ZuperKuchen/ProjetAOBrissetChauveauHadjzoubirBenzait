@@ -5,13 +5,15 @@ public abstract class Item {
 	
 	private int x;
 	private int y;
-	private Graph<Cell,Edge> lab;
+	private Graph<Cell,Edge> graph;
+	private Cell[][] cellArray;
 	
-	public Item(int x, int y, Graph<Cell,Edge> lab) {
+	public Item(int x, int y, Graph<Cell,Edge> graph, Cell[][] cellArray) {
 		super();
 		this.x = x;
 		this.y = y;
-		this.lab = lab;
+		this.graph = graph;
+		this.cellArray = cellArray;
 	}
 
 	public int getX() {
@@ -30,12 +32,16 @@ public abstract class Item {
 		this.y = y;
 	}
 
-	public Graph<Cell,Edge> getLab() {
-		return lab;
+	public Graph<Cell,Edge> getGraph() {
+		return graph;
 	}
-
-	public void setLab(Graph<Cell,Edge> lab) {
-		this.lab = lab;
+	
+	public Cell[][] getCellArray(){
+		return cellArray;
+	}
+	
+	public int getLabSize() {
+		return cellArray.length;
 	}
 
 }
