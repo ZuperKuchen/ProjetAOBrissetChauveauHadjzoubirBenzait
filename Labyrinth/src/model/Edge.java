@@ -1,10 +1,10 @@
 package model;
 
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.*;
 
+@SuppressWarnings("serial")
 public class Edge extends DefaultEdge implements Comparable<Edge> {
-	
+
 	public enum Type{
 		OPENED_DOOR,
 		CLOSED_DOOR,

@@ -5,9 +5,9 @@ public abstract class Item {
 	
 	private int x;
 	private int y;
-	private Graph lab;
+	private Graph<Cell,Edge> lab;
 	
-	public Item(int x, int y, Graph lab) {
+	public Item(int x, int y, Graph<Cell,Edge> lab) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -30,11 +30,11 @@ public abstract class Item {
 		this.y = y;
 	}
 
-	public Graph getLab() {
+	public Graph<Cell,Edge> getLab() {
 		return lab;
 	}
 
-	public void setLab(Graph lab) {
+	public void setLab(Graph<Cell,Edge> lab) {
 		this.lab = lab;
 	}
 
