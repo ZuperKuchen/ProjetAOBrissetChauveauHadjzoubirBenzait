@@ -3,11 +3,13 @@ package view;
 import javafx.stage.*;
 import model.Cell;
 import model.Edge;
+import model.Edge.Type;
 
 import org.jgrapht.Graph;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 
@@ -18,14 +20,16 @@ public class ViewFrame {
 	static final int CELL = 9;
 	public static final Paint WALL_COLOR = Color.BURLYWOOD;
 	public static final Paint SCENE_COLOR = Color.CORNSILK;
+	public static final Paint CLOSED_DOOR_COLOR = Color.BLACK;
+	public static final Paint OPENED_DOOR_COLOR = Color.BROWN;
 	
-	private static Scene scene;
-	private static Group pane;
+	static Scene scene;
+	static Pane pane;
 	
 
 	
 	public static void drawFrame(Stage stage, int nbX, int nbY) {
-		pane = new Group();
+		pane = new Pane();
 		scene = new Scene(pane, ((WALL + CELL) * nbX + WALL) * SPAN,((WALL + CELL) * nbY + WALL) * SPAN);
 		scene.setFill(SCENE_COLOR);
 		Rectangle square;
@@ -84,19 +88,39 @@ public class ViewFrame {
 	public static void drawLabyrinth(Stage stage, Graph<Cell,Edge> graph, Cell[][] Cell, int nbX, int nbY) {
 		stage.setScene(scene);
 		//On parcourt la grille de jeu ligne par ligne depuis le coin supérieur gauche
-		//Pour chaque cell, on verifie  si il existe un chemin vers l'est et vers le sud auquel cas on ne dessine pas
+		//Pour chaque cell, on vérifie  si il existe un chemin vers l'est et vers le sud auquel cas on ne dessine pas
 		
 		for (int j=0; j<nbY; j++){
 			for (int i=0; i<nbX; i++) {
 				//vers l'est : si pas au bord et pas d'arrete on dessine
 				if(i != nbX-1 && !graph.containsEdge(Cell[i][j], Cell[i+1][j])){
-					//dessin
 					drawWall(i, j, i+1, j, WALL_COLOR);
+				}
+				//Si une arête de type DOOR on dessine
+				else if (i != nbX-1 && graph.containsEdge(Cell[i][j], Cell[i+1][j])) {
+					Edge edge = graph.getEdge(Cell[i][j], Cell[i+1][j]);
+					if(edge.getType() == Type.CLOSED_DOOR) {
+						drawWall(i, j, i+1, j, CLOSED_DOOR_COLOR);
+
+					}
+					else if(edge.getType() == Type.OPENED_DOOR) {
+						drawWall(i, j, i+1, j, OPENED_DOOR_COLOR);
+
+					}
 				}
 				//vers le sud: si pas en bas & pas d'arrete on dessine
 				if(j != nbY-1 && !graph.containsEdge(Cell[i][j], Cell[i][j+1])) {
-					//dessin
 					drawWall(i,j,i,j+1,WALL_COLOR);
+				}
+				//Si une arête de type DOOR on dessine
+				else if (j != nbY-1 && graph.containsEdge(Cell[i][j], Cell[i][j+1])) {
+					Edge edge = graph.getEdge(Cell[i][j], Cell[i][j+1]);
+					if(edge.getType() == Type.CLOSED_DOOR) {
+						drawWall(i,j,i,j+1,CLOSED_DOOR_COLOR);
+					}
+					else if(edge.getType() == Type.OPENED_DOOR) {
+						drawWall(i,j,i,j+1,OPENED_DOOR_COLOR);
+					}
 				}
 			}
 		}
