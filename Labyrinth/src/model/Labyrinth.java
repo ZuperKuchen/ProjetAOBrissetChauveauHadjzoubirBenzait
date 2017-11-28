@@ -4,7 +4,7 @@ import org.jgrapht.graph.*;
 
 public class Labyrinth {
 
-	private Graph<Cell, DefaultEdge> graph;
+	private Graph<Cell,Edge> graph;
 	public Cell[][] cellArray;
 	
 	private int difficulty;
@@ -27,7 +27,7 @@ public class Labyrinth {
 
 	private void generateGraph() {
 		//Implémenter l'algo donné
-		graph = new SimpleGraph<>(DefaultEdge.class);
+		graph = new SimpleGraph<>(Edge.class);
 		cellArray = new Cell[sizeX][sizeY];
 		for(int x = 0; x < sizeX; x++) {
 			for(int y = 0; y < sizeY; y++) {
@@ -91,7 +91,7 @@ public class Labyrinth {
 		// A finir
 	}
 
-	public Graph<Cell,DefaultEdge> getGraph() {
+	public Graph<Cell,Edge> getGraph() {
 		return graph;
 	}
 
