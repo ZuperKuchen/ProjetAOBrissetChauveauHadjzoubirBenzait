@@ -17,4 +17,8 @@ public class Player extends Moving {
 		}
 		return INSTANCE;
 	}
+	
+	public static Player getInstance() {
+		return INSTANCE;
+	}
 }
