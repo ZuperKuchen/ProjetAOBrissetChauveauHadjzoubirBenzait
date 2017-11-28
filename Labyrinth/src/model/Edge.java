@@ -2,6 +2,10 @@ package model;
 
 import org.jgrapht.graph.DefaultEdge;
 
+/*
+ * La classe Edge est implémentée pour permettre l'ajout de portes ouvertes et fermées.
+ */
+
 @SuppressWarnings("serial")
 public class Edge extends DefaultEdge implements Comparable<Edge> {
 
@@ -18,7 +22,7 @@ public class Edge extends DefaultEdge implements Comparable<Edge> {
 		this.type = type;
 	}
 	
-	//default
+	//Par défaut on considère un edge comme un couloir.
 	public Edge() {
 		super();
 		this.type = Type.CORRIDOR;

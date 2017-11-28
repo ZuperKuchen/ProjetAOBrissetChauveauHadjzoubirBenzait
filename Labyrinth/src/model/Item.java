@@ -5,8 +5,8 @@ public abstract class Item {
 	
 	private int x;
 	private int y;
-	private Graph<Cell,Edge> graph;
-	private Cell[][] cellArray;
+	protected Graph<Cell,Edge> graph;
+	protected Cell[][] cellArray;
 	
 	public Item(int x, int y, Graph<Cell,Edge> graph, Cell[][] cellArray) {
 		super();
@@ -40,8 +40,13 @@ public abstract class Item {
 		return cellArray;
 	}
 	
-	public int getLabSize() {
+	public int getLabSizeX() {
 		return cellArray.length;
+	}
+	
+	public int getLabSizeY() {
+		if(cellArray.length==0) return 0;
+		else return cellArray[0].length;
 	}
 
 }
