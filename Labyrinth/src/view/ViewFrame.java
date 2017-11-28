@@ -18,6 +18,7 @@ public class ViewFrame {
 	private static Group pane;
 	
 	public static void drawFrame(Stage stage, int nbX, int nbY) {
+		pane = new Group();
 		scene = new Scene(pane, ((WALL + CELL) * nbX + WALL) * SPAN,((WALL + CELL) * nbY + WALL) * SPAN);
 		scene.setFill(SCENE_COLOR);
 		

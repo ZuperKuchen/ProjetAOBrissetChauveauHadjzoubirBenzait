@@ -46,6 +46,7 @@ public class Labyrinth {
 		c[1] = (int) (Math.random()*4);
 		c[2] = (int) (Math.random()*4);
 		c[3] = (int) (Math.random()*4);
+		System.out.print(c);
 		int currentX = currentCell.getX();
 		int currentY = currentCell.getY();
 		
