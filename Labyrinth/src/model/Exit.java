@@ -5,7 +5,7 @@ import org.jgrapht.Graph;
 public class Exit extends Item {
 
 	private Exit(int x, int y, Graph<Cell, Edge> graph, Cell[][] cellArray) {
-		super(x, y, graph, cellArray);
+		super(x, y);
 	}
 	
 	private static Exit INSTANCE = null;

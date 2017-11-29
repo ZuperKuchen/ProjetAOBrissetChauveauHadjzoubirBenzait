@@ -1,43 +1,37 @@
 package model;
 import org.jgrapht.*;
 import org.jgrapht.graph.*;
-
+/*
+ * La classe Labyrinth génère automatiquement un labyrinth quand elle est instanciée. 
+ * Un objet Labyrinth contient le graph, le tableau des cellules.
+ */
 public class Labyrinth {
 
 	private Graph<Cell,Edge> graph;
-	private Cell[][] cellArray;
-	
-	private int difficulty;
+	private Cell[][] cellArray;				//Nous utilisons un tableau de cellules pour
+											//y avoir accés plus rapidement, sans devoir
+											//chercher dans le graph.
 	private int sizeX;
 	private int sizeY;
 	
-	private int nbMonsters;
-	private int nbCandies;
-	private int nbDoors;
-	private Item[] itemArray;
-	
-	public Labyrinth(int difficulty, int sizeX, int sizeY) {
-		this.difficulty = difficulty;
+	public Labyrinth(int sizeX, int sizeY) {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		
 		this.generateGraph();
-		this.generateItems();
 	}
 
 	private void generateGraph() {
-		//Implémenter l'algo donné
 		graph = new SimpleGraph<>(Edge.class);
-		cellArray = new Cell[sizeX][sizeY];
-		for(int x = 0; x < sizeX; x++) {
-			for(int y = 0; y < sizeY; y++) {
-				cellArray[x][y] = new Cell(x, y);
+		cellArray = new Cell[sizeX][sizeY];				//generateGraph() se contente d'initialiser le graph
+		for(int x = 0; x < sizeX; x++) {				//et le tableau de cellules, puis passe la main
+			for(int y = 0; y < sizeY; y++) {			//à buildLabyrinth() qui implémente l'algo pour créer
+				cellArray[x][y] = new Cell(x, y);		//un graph correspondant à un labyrinth parfait.
 				
 			}
 		}
 		graph.addVertex(cellArray[0][0]);
 		buildLabyrinth(cellArray[0][0]);
-		
 	}
 	
 	private void buildLabyrinth(Cell currentCell) {
@@ -81,15 +75,7 @@ public class Labyrinth {
 			}
 		}
 	}
-	
-	private void generateItems() {
-		if(this.difficulty < 1) this.nbMonsters = 1;
-		else if(this.difficulty >= 1) this.nbMonsters = 2;
-		nbCandies = 0;
-		nbDoors = 0;
-		itemArray = new Item[2+nbCandies+nbDoors+nbMonsters];
-		// A finir
-	}
+
 
 	public Graph<Cell,Edge> getGraph() {
 		return graph;
@@ -98,9 +84,12 @@ public class Labyrinth {
 	public Cell[][] getCellArray() {
 		return cellArray;
 	}
-	
-	public Item[] getItemArray() {
-		return itemArray;
+
+	public int getSizeX() {
+		return sizeX;
 	}
-	
+
+	public int getSizeY() {
+		return sizeY;
+	}
 }

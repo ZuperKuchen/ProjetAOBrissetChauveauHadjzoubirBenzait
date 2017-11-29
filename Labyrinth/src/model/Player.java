@@ -3,10 +3,10 @@ package model;
 import org.jgrapht.Graph;
 
 
-public class Player extends Moving {
+public class Player extends Item {
 	
 	private Player(int x, int y, Graph<Cell, Edge> graph, Cell[][] cellArray) {
-		super(x, y, graph, cellArray);
+		super(x, y);
 	}
 	
 	private static Player INSTANCE = null;

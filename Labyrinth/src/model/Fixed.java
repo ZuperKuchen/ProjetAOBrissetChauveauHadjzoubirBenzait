@@ -1,36 +1,47 @@
 package model;
 
-import org.jgrapht.Graph;
-
 /*
- * La classe abstraite fixed est implémentée pour l'attribut "on" qui peut être utilisé dans
- * plusieurs cas. En l'occurence nous avons pour l'instant les objets de classe "candy" qui utilisent
- * l'attribut ON pour savoir s'il est encore à ramasser, et les objets de classe "switch"
- * qui l'utilisent pour savoir si l'intérupteur est activé ou non.
+ * La classe fixed est implémentée pour les objets qui ne doivent pas être déplacés.
+ * "state" qui peut être utilisé dans plusieurs cas. En l'occurence nous avons pour 
+ * l'instant les objets "candy" qui utilisent l'attribut "state" pour savoir s'il est 
+ * encore à ramasser, et les objets "switch" qui l'utilisent pour savoir si 
+ * l'intérupteur est activé ou non.
  */
 
-public abstract class Fixed extends Item {
+public class Fixed extends Item {
 	
-	private boolean on;
+	public enum Name{
+		CANDY,
+		SWITCH;
+	};
 	
-	public Fixed(int x, int y, Graph<Cell, Edge> graph, Cell[][] cellArray, boolean on) {
-		super(x, y, graph, cellArray);
-		this.on = on;
+	private boolean state;
+	private Name name;
+	
+	
+	public Fixed(int x, int y, boolean state, Name name) {
+		super(x, y);
+		this.name = name;
+		this.state = state;
 	}
 
-	public boolean isOn() {
-		return on;
+	public boolean getState() {
+		return state;
 	}
 	
-	public void turn(boolean on) {
-		this.on = on;
+	public void turn(boolean state) {
+		this.state = state;
 	}
 
 	public void turnOn() {
-		this.on = true;
+		this.state = true;
 	}
 	
 	public void turnOff() {
-		this.on = false;
+		this.state = false;
+	}
+	
+	public Name getName() {
+		return name;
 	}
 }
