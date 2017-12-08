@@ -1,4 +1,4 @@
-package controller;
+/*package controller;
 
 import org.jgrapht.Graph;
 
@@ -11,6 +11,8 @@ import model.Item;
  * et les monsters. Elle doit vérifier que l'item donné n'est pas fixed, et déplacer
  * l'item dans la direction donnée seulement s'il le peut.
  */
+
+/*
 public class MoveItem {
 	
 	public static boolean CanMoveNorth(Item item, Graph<Cell,Edge> graph, Cell[][] cellArray) {
@@ -22,7 +24,7 @@ public class MoveItem {
 		}
 		return false;
 	}
-	
+	/*
 	public boolean CanMoveSouth() {
 		if(super.getY() < super.getLabSizeY()-1){
 			Edge tmp = graph.getEdge(cellArray[super.getX()][super.getY()], cellArray[super.getX()][super.getY()+1]);
@@ -60,6 +62,7 @@ public class MoveItem {
 	 * dans la direction donnée, et le déplace dans ce cas.
 	 * 
 	 */
+/*
 	public void MoveNorth() {
 		if (this.CanMoveNorth()) super.setY(super.getY()-1);
 	}
@@ -75,4 +78,4 @@ public class MoveItem {
 	public void MoveWest() {
 		if (this.CanMoveWest()) super.setX(super.getX()-1);
 	}
-}
+}*/

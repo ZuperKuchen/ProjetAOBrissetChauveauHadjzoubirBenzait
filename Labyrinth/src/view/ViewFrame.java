@@ -7,13 +7,19 @@ import model.Edge.Type;
 
 import org.jgrapht.Graph;
 
-import javafx.scene.Group;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 
-public class ViewFrame {
+public class ViewFrame extends Stage{
+	
+	public ViewFrame() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 	static final int SPAN = 4;
 	static final int WALL = 2;
@@ -23,17 +29,18 @@ public class ViewFrame {
 	public static final Paint CLOSED_DOOR_COLOR = Color.BLACK;
 	public static final Paint OPENED_DOOR_COLOR = Color.BROWN;
 	
-	static Scene scene;
 	static Pane pane;
-	
 
+	public static Pane getPane() {
+		return pane;
+	}
 	
-	public static void drawFrame(Stage stage, int nbX, int nbY) {
+	public void initFrame(int nbX, int nbY) {
 		pane = new Pane();
-		scene = new Scene(pane, ((WALL + CELL) * nbX + WALL) * SPAN,((WALL + CELL) * nbY + WALL) * SPAN);
-		scene.setFill(SCENE_COLOR);
+		Scene tmp = new Scene(pane, ((WALL + CELL) * nbX + WALL) * SPAN,((WALL + CELL) * nbY + WALL) * SPAN);
+		tmp.setFill(SCENE_COLOR);
 		Rectangle square;
-		stage.setScene(scene);
+		this.setScene(tmp);
 		
 		square = new Rectangle(0,0, SPAN * (nbX * (CELL + WALL) + WALL), WALL * SPAN);
 		square.setFill(WALL_COLOR);
@@ -42,7 +49,6 @@ public class ViewFrame {
 		square = new Rectangle(0, SPAN *(nbY * (CELL + WALL)), SPAN * (nbX * (CELL + WALL) + WALL), WALL * SPAN);
 		square.setFill(WALL_COLOR);
 		pane.getChildren().add(square);
-		
 		square = new Rectangle(0, 0, WALL * SPAN, SPAN * (nbY * (CELL + WALL) + WALL));
 		square.setFill(WALL_COLOR);
 		pane.getChildren().add(square);
@@ -85,8 +91,8 @@ public class ViewFrame {
 		}
 	}
 	
-	public static void drawLabyrinth(Stage stage, Graph<Cell,Edge> graph, Cell[][] Cell, int nbX, int nbY) {
-		stage.setScene(scene);
+	public void drawLabyrinth(Graph<Cell,Edge> graph, Cell[][] Cell, int nbX, int nbY) {
+		//stage.setScene(scene);
 		//On parcourt la grille de jeu ligne par ligne depuis le coin supérieur gauche
 		//Pour chaque cell, on vérifie  si il existe un chemin vers l'est et vers le sud auquel cas on ne dessine pas
 		
@@ -125,6 +131,9 @@ public class ViewFrame {
 			}
 		}
 	}
+
+
+	
 	
 	
 	

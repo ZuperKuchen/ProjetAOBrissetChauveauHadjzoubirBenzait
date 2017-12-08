@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import view.*;
 import model.*;
+import controller.Controller;
 
 public class Main extends Application{
 
@@ -14,16 +15,21 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		primaryStage.setTitle("Labyrinth");
-		ViewFrame.drawFrame(primaryStage, 16, 16);
-		primaryStage.show();
 		Labyrinth lab = new Labyrinth(16,16);
-		ViewFrame.drawLabyrinth(primaryStage, lab.getGraph(), lab.getCellArray(), 16, 16);
-		primaryStage.show();
 		Player player = Player.getInstance(0, 0, lab.getGraph(), lab.getCellArray());
-		ViewPlayer.View();
-		primaryStage.show();
+		ViewFrame view = new ViewFrame();
+		view.setTitle("Labyrinth");
+		view.initFrame(lab.getSizeX(), lab.getSizeY());
+		view.drawLabyrinth(lab.getGraph(), lab.getCellArray(), lab.getSizeX(), lab.getSizeY());
+		view.show();
+		ViewPlayer vp = ViewPlayer.getInstance();
+		vp.initView();
+		view.show();
 		
+		Controller c = new Controller(player, lab);
+		view.getScene().setOnKeyPressed(c);
+		//view.getScene().setOnKeyTyped(c);
+		view.show();
 		
 	}
 

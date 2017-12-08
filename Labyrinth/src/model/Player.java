@@ -3,7 +3,7 @@ package model;
 import org.jgrapht.Graph;
 
 
-public class Player extends Item {
+public class Player extends Item{
 	
 	private Player(int x, int y, Graph<Cell, Edge> graph, Cell[][] cellArray) {
 		super(x, y);

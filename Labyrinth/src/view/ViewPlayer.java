@@ -2,28 +2,40 @@ package view;
 
 
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import model.Player;
 
-public class ViewPlayer{
-	private static String imgPath = "file:img/player.png";
-	private static ImageView imageView;
-	private static Player player = Player.getInstance();
+public class ViewPlayer extends ViewMovable{
 	
+	private static ViewPlayer INSTANCE = null;
 	
-	
-	//NOT FINISH
-	public static void View(){
-		Image image = new Image(imgPath);
-		imageView = new ImageView(image);
-		
-		ViewFrame.pane.getChildren().add(ViewPlayer.imageView);
-		double xt = (int) ((ViewFrame.WALL + player.getX() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		double yt = (int) ((ViewFrame.WALL + player.getY() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		imageView.setX(xt);
-		imageView.setY(yt);
+	private ViewPlayer(Player player, String imgPath) {
+		super(player, imgPath);
 	}
+	
+	public static ViewPlayer getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new ViewPlayer(Player.getInstance(),PLAYER_SPRITE);
+		}
+		return INSTANCE;
+	}
+	
+	
+	public void init() {
+//		Image image = new Image("file:img/player.png");
+//		imageView = new ImageView(image);
+//		item = (Player) Player.getInstance();
+	}
+	
+	
+	public void update() {
+		//ViewFrame.pane.getChildren().add(this.imageView);
+		double xt = (int) ((ViewFrame.WALL + item.getX() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		double yt = (int) ((ViewFrame.WALL + item.getY() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		this.imageView.setX(xt);
+		this.imageView.setY(yt);
+	}
+	
+	
 
 	
 }
