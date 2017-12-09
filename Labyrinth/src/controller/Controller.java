@@ -30,8 +30,8 @@ public class Controller implements EventHandler<KeyEvent>{
 
 	private boolean can_move(int x,int y,DIR dir) {
 		int next_x = 100, next_y = 100; //Pourquoi java les veut-il initialisées? Grnd nombre en attendant
-		int X = this.lab.getSizeX();
-		int Y = this.lab.getSizeY();
+		int X = this.lab.getSizeX();	//Parce qu'ils sont initialisés dans des if et utilisés en dehors
+		int Y = this.lab.getSizeY();	//Il considère donc qu'ils peuvent être utilisés sans avoir de valeur.
 		switch (dir) {
 		case NORTH:
 			if(y >= 0) {
