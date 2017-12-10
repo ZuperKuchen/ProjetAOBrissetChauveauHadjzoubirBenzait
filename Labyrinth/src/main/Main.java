@@ -24,7 +24,7 @@ public class Main extends Application{
 		view.initFrame(lab.getSizeX(), lab.getSizeY());
 		view.drawLabyrinth(lab.getGraph(), lab.getCellArray(), lab.getSizeX(), lab.getSizeY());
 		view.show();
-		Player player = Player.getInstance(0, 0, lab.getGraph(), lab.getCellArray());
+		Player player = Player.getInstance(0, 0);
 		ViewPlayer vp = ViewPlayer.getInstance(view);
 		vp.initView();
 		view.show();

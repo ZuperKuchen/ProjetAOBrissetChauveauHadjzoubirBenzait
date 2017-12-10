@@ -1,7 +1,7 @@
 package controller;
 
 import model.Item;
-import model.LevelItems;
+import model.Level;
 import model.Fixed;
 import model.Fixed.Name;
 
@@ -46,7 +46,7 @@ public class ItemCollision {
 		
 	}
 	
-	public static void Run(LevelItems ItemArray) {
+	public static void run(Level ItemArray) {
 		
 		//TODO parcourir le tableau et déterminer s'il y a une collision en cours.
 		
