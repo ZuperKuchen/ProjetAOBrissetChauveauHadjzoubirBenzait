@@ -44,4 +44,5 @@ public class Fixed extends Item {
 	public Name getName() {
 		return name;
 	}
+
 }

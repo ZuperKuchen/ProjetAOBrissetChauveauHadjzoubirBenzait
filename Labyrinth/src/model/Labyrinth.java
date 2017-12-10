@@ -32,6 +32,19 @@ public class Labyrinth {
 		}
 		graph.addVertex(cellArray[0][0]);
 		buildLabyrinth(cellArray[0][0]);
+		
+		/*
+		 * On vérifie maintenant que le labyrinthe est bien connexe, et on
+		 * le complete si ça n'est pas le cas.
+		 */
+		for(int x = 0; x < sizeX; x++) {
+			for(int y = 0; y < sizeY; y++) {
+				if(graph.containsVertex(cellArray[x][y])) {
+					graph.addVertex(cellArray[x][y]);
+					buildLabyrinth(cellArray[x][y]);
+				}
+			}
+		}
 	}
 	
 	private void buildLabyrinth(Cell currentCell) {
