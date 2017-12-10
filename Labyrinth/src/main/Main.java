@@ -15,14 +15,17 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
+		/*boolean play = true;
+		int difficulty = 0;*/
 		Labyrinth lab = new Labyrinth(16,16);
-		Player player = Player.getInstance(0, 0, lab.getGraph(), lab.getCellArray());
-		ViewFrame view = new ViewFrame();
+		
+		ViewFrame view = ViewFrame.getInstance();
 		view.setTitle("Labyrinth");
 		view.initFrame(lab.getSizeX(), lab.getSizeY());
 		view.drawLabyrinth(lab.getGraph(), lab.getCellArray(), lab.getSizeX(), lab.getSizeY());
 		view.show();
-		ViewPlayer vp = ViewPlayer.getInstance();
+		Player player = Player.getInstance(0, 0, lab.getGraph(), lab.getCellArray());
+		ViewPlayer vp = ViewPlayer.getInstance(view);
 		vp.initView();
 		view.show();
 		
@@ -30,7 +33,6 @@ public class Main extends Application{
 		view.getScene().setOnKeyPressed(c);
 		//view.getScene().setOnKeyTyped(c);
 		view.show();
-		
 	}
 
 }

@@ -8,22 +8,19 @@ public class ViewPlayer extends ViewMovable{
 	
 	private static ViewPlayer INSTANCE = null;
 	
-	private ViewPlayer(Player player, String imgPath) {
-		super(player, imgPath);
+	private ViewPlayer(ViewFrame stage,Player player, String imgPath) {
+		super(stage, player, imgPath);
 	}
 	
-	public static ViewPlayer getInstance() {
+	public static ViewPlayer getInstance(ViewFrame stage) {
 		if (INSTANCE == null) {
-			INSTANCE = new ViewPlayer(Player.getInstance(),PLAYER_SPRITE);
+			INSTANCE = new ViewPlayer(stage,Player.getInstance(),PLAYER_SPRITE);
 		}
 		return INSTANCE;
 	}
 	
-	
-	public void init() {
-//		Image image = new Image("file:img/player.png");
-//		imageView = new ImageView(image);
-//		item = (Player) Player.getInstance();
+	public static ViewPlayer getInstance() {
+		return INSTANCE;
 	}
 	
 	

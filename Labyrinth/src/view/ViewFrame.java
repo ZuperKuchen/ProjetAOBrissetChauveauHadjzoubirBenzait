@@ -15,12 +15,6 @@ import javafx.scene.shape.Rectangle;
 
 public class ViewFrame extends Stage{
 	
-	public ViewFrame() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 	static final int SPAN = 4;
 	static final int WALL = 2;
 	static final int CELL = 9;
@@ -29,18 +23,28 @@ public class ViewFrame extends Stage{
 	public static final Paint CLOSED_DOOR_COLOR = Color.BLACK;
 	public static final Paint OPENED_DOOR_COLOR = Color.BROWN;
 	
-	static Pane pane;
+	private Pane pane;
+	
+	private static ViewFrame INSTANCE = new ViewFrame();
+	
+	private ViewFrame() {
+		super();
+		this.pane = new Pane();
+	}
+	
+	public static ViewFrame getInstance() {
+		return INSTANCE;
+	}
 
-	public static Pane getPane() {
+	public Pane getPane() {
 		return pane;
 	}
 	
 	public void initFrame(int nbX, int nbY) {
-		pane = new Pane();
 		Scene tmp = new Scene(pane, ((WALL + CELL) * nbX + WALL) * SPAN,((WALL + CELL) * nbY + WALL) * SPAN);
 		tmp.setFill(SCENE_COLOR);
-		Rectangle square;
 		this.setScene(tmp);
+		Rectangle square;
 		
 		square = new Rectangle(0,0, SPAN * (nbX * (CELL + WALL) + WALL), WALL * SPAN);
 		square.setFill(WALL_COLOR);
@@ -69,7 +73,7 @@ public class ViewFrame extends Stage{
 	}
 	
 	
-	public static void drawWall(int xs, int ys, int xt, int yt, Paint color) {
+	public void drawWall(int xs, int ys, int xt, int yt, Paint color) {
 		int x = 0, y = 0, xspan = 0, yspan = 0;
 		if(ys == yt) {
 			x = ((WALL + CELL) + (WALL + CELL) * ((int)(xs + xt) / 2)) * SPAN;
@@ -78,7 +82,7 @@ public class ViewFrame extends Stage{
 			yspan = CELL * SPAN;
 			Rectangle square = new Rectangle(x, y, xspan, yspan);
 			square.setFill(color);
-			pane.getChildren().add(square);
+			this.pane.getChildren().add(square);
 		}
 		else if (xs == xt) {
 			x = (WALL + xs * (WALL + CELL)) * SPAN;
@@ -87,7 +91,7 @@ public class ViewFrame extends Stage{
 			yspan = WALL * SPAN;
 			Rectangle square = new Rectangle(x, y, xspan, yspan);
 			square.setFill(color);
-			pane.getChildren().add(square);
+			this.pane.getChildren().add(square);
 		}
 	}
 	

@@ -4,8 +4,8 @@ import model.Item;
 
 public abstract class ViewMovable extends Sprite{
 
-	public ViewMovable(Item item, String imgPath) {
-		super(item, imgPath);
+	public ViewMovable(ViewFrame stage, Item item, String imgPath) {
+		super(stage, item, imgPath);
 		// TODO Auto-generated constructor stub
 	}
 	

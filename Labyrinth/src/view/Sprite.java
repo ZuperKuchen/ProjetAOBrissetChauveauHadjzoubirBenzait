@@ -17,24 +17,30 @@ public abstract class Sprite implements ISprite{
 	static final String CANDY4_SPRITE = "file:img/candy-4.png";
 	
 	protected ImageView imageView;
-	protected Item item;	
-	//protected ViewFrame view;
+	protected Item item;
+	protected ViewFrame view;
 	//protected static Pane pane;
-	
-	public abstract void init();
-	
-	public Sprite(Item item, String imgPath) {
+		
+	public Sprite(ViewFrame view, Item item, String imgPath) {
 		this.item = item;
 		this.imageView = new ImageView(new Image(imgPath));
+		this.view = view;
+	}
+	
+	ViewFrame getView() {
+		return this.view;
 	}
 	
 	public ImageView getImageView() {
 		return imageView;
 	}
 		
+	public void deleteView() {
+		this.view.getPane().getChildren().remove(this.imageView);
+	}
 	
 	public void initView(){
-		ViewFrame.pane.getChildren().add(this.imageView);
+		this.view.getPane().getChildren().add(this.imageView);
 		double xt = (int) ((ViewFrame.WALL + item.getX() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		double yt = (int) ((ViewFrame.WALL + item.getY() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		imageView.setX(xt);

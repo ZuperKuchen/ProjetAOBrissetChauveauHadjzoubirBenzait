@@ -5,6 +5,7 @@ import org.jgrapht.Graph;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import model.Player;
+import view.ViewFrame;
 import view.ViewPlayer;
 import model.*;
 public class Controller implements EventHandler<KeyEvent>{
@@ -29,41 +30,30 @@ public class Controller implements EventHandler<KeyEvent>{
 	}
 
 	private boolean can_move(int x,int y,DIR dir) {
-		int next_x = 100, next_y = 100; //Pourquoi java les veut-il initialisées? Grnd nombre en attendant
-		int X = this.lab.getSizeX();
+		int next_x = x, next_y = y;
+		int X = this.lab.getSizeX(); //Max 
 		int Y = this.lab.getSizeY();
-		switch (dir) {
-		case NORTH:
-			if(y >= 0) {
-				next_x = x ;
-				next_y = y - 1;
-			}
+		switch (dir){
+		case NORTH:				
+				next_y--;
 			break;
 		case SOUTH:
-			if(y < this.lab.getSizeY() - 1){
-				next_x = x;
-				next_y = y + 1;
-			}
+				next_y++;
 			break;
 		case EAST:
-			if(x < this.lab.getSizeX() - 1) {
-				next_x = x + 1;
-				next_y = y;
-			}
+				next_x++;
 			break;
 		case WEST:
-			if(x >= 0) {
-				next_x = x - 1;
-				next_y = y;
-			}
+				next_x--;				
 			break;
 		default:
 			return false;
 		}
-		System.out.println("(x,y): " + x+" "+y +"(nx,ny):" + next_x + next_y);
-		if ( x >= 0 && x < X - 1 && y >= 0 && y < Y && next_x >= 0 && next_x < X && next_y >= 0 && next_y < Y) {
+		if ( /*x >= 0 && x < X - 1 && y >= 0 && y < Y && */ 
+				next_x >= 0 && next_x < X  && next_y >= 0 && next_y < Y) {
 			if(this.lab_graph.containsEdge(this.lab.getCellArray()[x][y], this.lab.getCellArray()[next_x][next_y])){
 				if(this.lab_graph.getEdge(this.lab.getCellArray()[x][y], this.lab.getCellArray()[next_x][next_y]).getType() != Edge.Type.CLOSED_DOOR) {
+					System.out.println("(x,y): " + x+" "+y +"(nx,ny):" + next_x +" "+ next_y);
 					return true;
 				}
 			}
@@ -117,6 +107,10 @@ public class Controller implements EventHandler<KeyEvent>{
 			System.out.println("SOUTH");
 			movePlayer(DIR.SOUTH);
 			break;
+		case ESCAPE:
+			//this.viewP.deleteView();
+			//ViewFrame.getInstance().getScene().setFill(ViewFrame.WALL_COLOR);
+			System.out.println("Wanna escape? \n");
 		default:
 			break;
 		}
