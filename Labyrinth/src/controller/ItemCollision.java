@@ -15,12 +15,12 @@ public class ItemCollision {
 		NOTHING;
 	};
 	
-	private static boolean sameCell(Item item1, Item item2) {
-		return item1.getX() == item2.getX() && item1.getY() == item2.getY();
+	private static boolean sameCell(Item item1, Item item2) {					//Est-ce que les items sont sur
+		return item1.getX() == item2.getX() && item1.getY() == item2.getY();	//la même case
 	}
 	
-	private static Event whichEvent(Item item) {
-		String itemName = item.getClass().getName();
+	private static Event whichEvent(Item item) {					//Détermine quel évènement découle de la collision
+		String itemName = item.getClass().getName();				//en cours
 		if(itemName == "Player") {
 			return Event.NOTHING;
 		}
@@ -46,10 +46,51 @@ public class ItemCollision {
 		
 	}
 	
-	public static void run(Level ItemArray) {
+	private static Item run(Level itemArray, Event event) {			//Parcours les items et détermine la collision
+																	//s'il y en a une. Renvoie l'objet concerné.
+		itemArray.getPlayer();
+		itemArray.getExit();
+		if(sameCell(itemArray.getPlayer(),itemArray.getExit())) {
+			event = whichEvent(itemArray.getExit());
+			return itemArray.getExit();
+		}
+		for(int i = 0; i < itemArray.getFixedItems().length; i++) {
+			if(sameCell(itemArray.getPlayer(),itemArray.getFixedItems()[i])) {
+				event = whichEvent(itemArray.getFixedItems()[i]);
+				return itemArray.getFixedItems()[i];
+			}
+		}
+		for(int i = 0; i < itemArray.getMonsters().length; i++) {
+			if(sameCell(itemArray.getPlayer(),itemArray.getMonsters()[i])) {
+				event = whichEvent(itemArray.getMonsters()[i]);
+				return itemArray.getMonsters()[i];
+			}
+		}
+		return null;
+	}
+	public static Event collision(Level currentGame) {
+		Event event = Event.NOTHING;
+		Item item = run(currentGame, event);
 		
-		//TODO parcourir le tableau et déterminer s'il y a une collision en cours.
+		/*
+		 * Ici nous gérons l'interaction avec l'objet concerné par la collision.
+		 */
+		if(event == Event.GET_CANDY) {
+			((Fixed) item).turnOff();
+			event = Event.NOTHING;
+		}
+		if(event == Event.OPEN_DOOR) {
+			((Fixed) item).turnOff();
+			//TODO Gérer l'ouverture de portes, qui doivent être définies dans Labyrinth (je pense)
+			event = Event.NOTHING;
+		}
 		
+		/*
+		 * L'évènement que l'on retourne est soit NOTHING, soit LOSE soit NEXT
+		 * il doit donc être récupéré par le controller pour savoir quoi
+		 * exécuter ensuite.
+		 */
+		return event;
 	}
 }
 
