@@ -17,7 +17,6 @@ public class Labyrinth {
 	public Labyrinth(int sizeX, int sizeY) {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
-		
 		this.generateGraph();
 	}
 

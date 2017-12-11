@@ -8,24 +8,23 @@ import model.Player;
 import view.ViewFrame;
 import view.ViewPlayer;
 import model.*;
-public class Controller implements EventHandler<KeyEvent>{
+public class PlayerControl implements EventHandler<KeyEvent>{
 
 	enum DIR{SOUTH,NORTH,EAST,WEST};
 
 
 	private Player player;
-	//private ImageView sprite;
 	private Labyrinth lab;
 	private Graph<Cell,Edge> lab_graph;
 	ViewPlayer viewP;
 
 
 
-	public Controller(Player player, Labyrinth labyrinth) {
+	public PlayerControl(Level currentLevel) {
 		super();
-		this.player = player;
-		this.lab = labyrinth;
-		this.lab_graph = this.lab.getGraph();
+		this.player = currentLevel.getPlayer();
+		this.lab = currentLevel.getLab();
+		this.lab_graph = currentLevel.getLab().getGraph();
 		this.viewP = ViewPlayer.getInstance();
 	}
 

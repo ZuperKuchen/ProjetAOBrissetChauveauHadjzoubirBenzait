@@ -18,6 +18,7 @@ public class Level {
 		lab = new Labyrinth(sizeX, sizeY);
 		this.difficulty = difficulty;
 		itemsGenerator();
+		//TODO Ecrire une méthode de vérification de faisabilité
 	}
 
 	private void itemsGenerator() {
