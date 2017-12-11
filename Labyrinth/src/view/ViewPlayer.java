@@ -4,7 +4,7 @@ package view;
 
 import model.Player;
 
-public class ViewPlayer extends ViewMovable{
+public class ViewPlayer extends MovingSprite{
 	
 	private static ViewPlayer INSTANCE = null;
 	
@@ -23,9 +23,8 @@ public class ViewPlayer extends ViewMovable{
 		return INSTANCE;
 	}
 	
-	
+	@Override
 	public void update() {
-		//ViewFrame.pane.getChildren().add(this.imageView);
 		double xt = (int) ((ViewFrame.WALL + item.getX() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		double yt = (int) ((ViewFrame.WALL + item.getY() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		this.imageView.setX(xt);

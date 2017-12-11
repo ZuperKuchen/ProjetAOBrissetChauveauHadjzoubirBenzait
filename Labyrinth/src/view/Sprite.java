@@ -18,9 +18,10 @@ public abstract class Sprite implements ISprite{
 	
 	protected ImageView imageView;
 	protected Item item;
-	protected ViewFrame view;
-	//protected static Pane pane;
-		
+	protected ViewFrame view;	
+	
+	public abstract void update();
+	
 	public Sprite(ViewFrame view, Item item, String imgPath) {
 		this.item = item;
 		this.imageView = new ImageView(new Image(imgPath));

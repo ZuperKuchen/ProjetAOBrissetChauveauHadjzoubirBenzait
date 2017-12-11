@@ -23,7 +23,8 @@ public class Level {
 
 	private void itemsGenerator() {
 		player = Player.getInstance(0, 0);								//TODO
-		exit = Exit.getInstance(lab.getSizeX()-1, lab.getSizeY()-1);
+		exit = Exit.getInstance(3, 3); //just for test
+		//exit = Exit.getInstance(lab.getSizeX()-1, lab.getSizeY()-1);
 		fixedItems = null;
 		monsters = null;
 	}

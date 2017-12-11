@@ -4,6 +4,8 @@ import javafx.stage.*;
 import model.Cell;
 import model.Edge;
 import model.Edge.Type;
+import model.Fixed;
+import model.Level;
 
 import org.jgrapht.Graph;
 
@@ -23,9 +25,17 @@ public class ViewFrame extends Stage{
 	public static final Paint CLOSED_DOOR_COLOR = Color.BLACK;
 	public static final Paint OPENED_DOOR_COLOR = Color.BROWN;
 	
+	private Level lvl;
 	private Pane pane;
 	
-	private static ViewFrame INSTANCE = new ViewFrame();
+	private ViewPlayer player;
+	private MovingSprite exit;  //View
+	
+	private FixedSprite[] items;
+	private MovingSprite[] monsters;
+	//TO ADD OTHER VIEW
+	
+	/*private static ViewFrame INSTANCE = new ViewFrame();
 	
 	private ViewFrame() {
 		super();
@@ -35,12 +45,64 @@ public class ViewFrame extends Stage{
 	public static ViewFrame getInstance() {
 		return INSTANCE;
 	}
+*/
+	public ViewFrame(Level lvl) {
+		super();
+		this.lvl = lvl;
+		this.pane = new Pane();
+		this.player = ViewPlayer.getInstance(this);
+		this.exit = new MovingSprite(this,lvl.getExit(),Sprite.DOOR_SPRITE); // TO MODIFY
+		/*
+		//Les monstres
+		for (int i=0 ; i < lvl.getMonsters().length ; i++) {
+			this.monsters[i] = new MovingSprite(this, lvl.getMonsters()[i],Sprite.BAD_SPRITE);
+		}
+		//Les Items
+		int nbCandy = 0;
+		for (int i=0 ; i < lvl.getFixedItems().length ; i++) {
+			Fixed item = lvl.getFixedItems()[i];
+			String imgpath = null;
+			switch (item.getName()) {
+			case CANDY:
+				nbCandy++;
+				switch (nbCandy%4) {
+				case 0:
+					imgpath = Sprite.CANDY1_SPRITE;
+					break;
+				case 1:
+					imgpath = Sprite.CANDY2_SPRITE;
+					break;
+				case 2:
+					imgpath = Sprite.CANDY3_SPRITE;
+					break;
+				case 3:
+					imgpath = Sprite.CANDY4_SPRITE;
+					break;
+				}
+				break;
+			case SWITCH:
+				imgpath = Sprite.BUTT_CLOSE_SPRITE;
+				break;
+			default:
+				System.out.println(" PAS POSSIBLE VIEWFRAME CONSTRUCTOR");
+				return;
+			}
+			this.items[i] = new FixedSprite(this, item, imgpath);
+		}
+		*/
+	}
+	
+	public Level getLvl() {
+		return lvl;
+	}
 
 	public Pane getPane() {
 		return pane;
 	}
 	
-	public void initFrame(int nbX, int nbY) {
+	public void initFrame() {
+		int nbX = this.lvl.getLab().getSizeX();
+		int nbY = this.lvl.getLab().getSizeY();
 		Scene tmp = new Scene(pane, ((WALL + CELL) * nbX + WALL) * SPAN,((WALL + CELL) * nbY + WALL) * SPAN);
 		tmp.setFill(SCENE_COLOR);
 		this.setScene(tmp);
@@ -95,11 +157,14 @@ public class ViewFrame extends Stage{
 		}
 	}
 	
-	public void drawLabyrinth(Graph<Cell,Edge> graph, Cell[][] Cell, int nbX, int nbY) {
+	public void drawLabyrinth() {
 		//stage.setScene(scene);
 		//On parcourt la grille de jeu ligne par ligne depuis le coin supérieur gauche
 		//Pour chaque cell, on vérifie  si il existe un chemin vers l'est et vers le sud auquel cas on ne dessine pas
-		
+		Graph<Cell,Edge> graph = this.lvl.getLab().getGraph();
+		Cell[][] Cell = this.lvl.getLab().getCellArray();
+		int nbX = this.lvl.getLab().getSizeX();
+		int nbY = this.lvl.getLab().getSizeY();
 		for (int j=0; j<nbY; j++){
 			for (int i=0; i<nbX; i++) {
 				//vers l'est : si pas au bord et pas d'arrete on dessine
@@ -134,6 +199,9 @@ public class ViewFrame extends Stage{
 				}
 			}
 		}
+		player.initView();
+		exit.initView();
+		//TO ADD other initView 
 	}
 
 
