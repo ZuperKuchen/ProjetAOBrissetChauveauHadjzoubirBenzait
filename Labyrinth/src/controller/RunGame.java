@@ -28,6 +28,7 @@ public class RunGame {
 		Level currentLevel = new Level(difficulty, sizeX, sizeY);
 		
 		ViewFrame view = new ViewFrame(currentLevel);
+		view.show();
 		//ViewFrame view = ViewFrame.getInstance();
 		//view.drawLabyrinth(currentLevel.getLab().getGraph(), currentLevel.getLab().getCellArray(), sizeX, sizeY);
 		//ViewPlayer vp = ViewPlayer.getInstance(view);
@@ -37,6 +38,17 @@ public class RunGame {
 		
 		PlayerControl playerControl = new PlayerControl(currentLevel);
 		view.getScene().setOnKeyPressed(playerControl);
-		view.show();
+		System.out.print("\n");
+		System.out.print("Je boucle bien salement\n");
+		
+		/*while(true) {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.print("Je boucle bien salement\n");
+			view.show();
+		}*/
 	}
 }
