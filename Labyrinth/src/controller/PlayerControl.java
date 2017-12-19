@@ -17,6 +17,7 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 	private Labyrinth lab;
 	private Graph<Cell,Edge> lab_graph;
 	ViewPlayer viewP;
+	DIR actualDir;
 
 
 
@@ -60,10 +61,9 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 		return false;
 	}
 	
-	public void movePlayer(DIR dir) {
-		if(can_move(this.player.getX(),this.player.getY(),dir)) {
-			System.out.println(" OUI");
-			switch(dir) {
+	public void movePlayer() {
+		if(can_move(this.player.getX(),this.player.getY(),this.actualDir)) {
+			switch(this.actualDir) {
 			case SOUTH:
 				this.player.setY(this.player.getY() + 1);
 				break;
@@ -76,6 +76,8 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 			case WEST:
 				this.player.setX(this.player.getX() - 1);
 				break;
+			default:
+				break;
 			}
 			viewP.update();
 		}
@@ -83,28 +85,29 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 	}
 
 	public void handle(KeyEvent event) {
+		DIR tmpDir = this.actualDir;
 		switch(event.getCode()) {
 		case B:
 			System.out.println("SERIEUX?!");
 		case D:
 		case RIGHT:
+			tmpDir = DIR.EAST;
 			System.out.println("EAST");	
-			movePlayer(DIR.EAST);
 			break;
 		case Q:
 		case LEFT:
+			tmpDir = DIR.WEST;
 			System.out.println("WEST");	
-			movePlayer(DIR.WEST);
 			break;
 		case Z:
 		case UP:
+			tmpDir = DIR.NORTH;
 			System.out.println("NORTH");	
-			movePlayer(DIR.NORTH);
 			break;
 		case S:
 		case DOWN:
+			tmpDir = DIR.SOUTH;
 			System.out.println("SOUTH");
-			movePlayer(DIR.SOUTH);
 			break;
 		case ESCAPE:
 			//this.viewP.deleteView();
@@ -113,7 +116,9 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 		default:
 			break;
 		}
-
+		if(can_move(this.player.getX(),this.player.getY(),this.actualDir)) {
+			this.actualDir = tmpDir;
+		}
 	}
 
 	

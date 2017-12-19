@@ -1,6 +1,11 @@
 package controller;
 
 import controller.ItemCollision.Event;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import model.Level;
 import view.ViewFrame;
 import view.ViewPlayer;
@@ -8,15 +13,6 @@ import view.ViewPlayer;
 public class RunGame {
 	public static void run(int sizeX, int sizeY) {
 		
-		
-		/*
-		 * On a besoin de Level pour créer une view
-		 * 
-		 */
-		/*ViewFrame view = ViewFrame.getInstance();
-		view.setTitle("Labyrinth");
-		view.initFrame(sizeX, sizeY);
-		*/
 		int difficulty = 0;
 		Event event = Event.NEXT_LEVEL;
 		//TODO WHILE EVENT == NEXT_LEVEL
@@ -29,17 +25,17 @@ public class RunGame {
 		
 		ViewFrame view = new ViewFrame(currentLevel);
 		view.show();
-		//ViewFrame view = ViewFrame.getInstance();
-		//view.drawLabyrinth(currentLevel.getLab().getGraph(), currentLevel.getLab().getCellArray(), sizeX, sizeY);
-		//ViewPlayer vp = ViewPlayer.getInstance(view);
-		//vp.initView();
 		view.initFrame();
 		view.drawLabyrinth();
-		
 		PlayerControl playerControl = new PlayerControl(currentLevel);
 		view.getScene().setOnKeyPressed(playerControl);
+		/*Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2500), playerControl.movePlayer() ));
+		Timeline test = new Tim
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+        */
 		System.out.print("\n");
-		System.out.print("Je boucle bien salement\n");
+		//System.out.print("Je boucle bien salement\n");
 		
 		/*while(true) {
 			try {
