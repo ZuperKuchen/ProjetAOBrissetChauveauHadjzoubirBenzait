@@ -1,5 +1,15 @@
 package model;
 
+/**
+ * Définie une cellule du tableau, dans le graphe
+ * elle est un sommet.
+ * 
+ * @param x, y
+ * 			Coordonnées
+ * 
+ * @author piechauveau
+ *
+ */
 public class Cell {
 	private int x;
 	private int y;
