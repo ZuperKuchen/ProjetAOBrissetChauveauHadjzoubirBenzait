@@ -144,7 +144,11 @@ public class Labyrinth {
 			}
 		}
 	}
-
+	
+	
+	
+	
+	
 
 	public Graph<Cell,Edge> getGraph() {
 		return graph;
