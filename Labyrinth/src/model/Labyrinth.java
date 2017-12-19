@@ -1,16 +1,19 @@
 package model;
 import org.jgrapht.*;
 import org.jgrapht.graph.*;
-/*
+/**
  * La classe Labyrinth génère automatiquement un labyrinth quand elle est instanciée. 
  * Un objet Labyrinth contient le graph, le tableau des cellules.
+ * 
+ * @param cellArray
+ * 			Nous utilisons un tableau de cellules pour
+ *			y avoir accés plus rapidement, sans devoir
+ *			chercher dans le graph.
  */
 public class Labyrinth {
 
 	private Graph<Cell,Edge> graph;
-	private Cell[][] cellArray;				//Nous utilisons un tableau de cellules pour
-											//y avoir accés plus rapidement, sans devoir
-											//chercher dans le graph.
+	private Cell[][] cellArray;		
 	private int sizeX;
 	private int sizeY;
 	
@@ -19,31 +22,25 @@ public class Labyrinth {
 		this.sizeY = sizeY;
 		this.generateGraph();
 	}
-
+	
+	/**
+	 * Se contente d'initialiser le graph
+	 * et le tableau de cellules, puis passe la main
+	 * à buildLabyrinth() qui implémente l'algo pour créer
+	 * un graph correspondant à un labyrinth parfait.
+	 */
 	private void generateGraph() {
 		graph = new SimpleGraph<>(Edge.class);
-		cellArray = new Cell[sizeX][sizeY];				//generateGraph() se contente d'initialiser le graph
-		for(int x = 0; x < sizeX; x++) {				//et le tableau de cellules, puis passe la main
-			for(int y = 0; y < sizeY; y++) {			//à buildLabyrinth() qui implémente l'algo pour créer
-				cellArray[x][y] = new Cell(x, y);		//un graph correspondant à un labyrinth parfait.
+		cellArray = new Cell[sizeX][sizeY];	
+		for(int x = 0; x < sizeX; x++) {	
+			for(int y = 0; y < sizeY; y++) {
+				cellArray[x][y] = new Cell(x, y);
 				
 			}
 		}
 		graph.addVertex(cellArray[0][0]);
 		buildLabyrinth(cellArray[0][0]);
-		
-		/*
-		 * On vérifie maintenant que le labyrinthe est bien connexe, et on
-		 * le complete si ça n'est pas le cas.
-		 */
-		for(int x = 0; x < sizeX; x++) {
-			for(int y = 0; y < sizeY; y++) {
-				if(graph.containsVertex(cellArray[x][y])) {
-					graph.addVertex(cellArray[x][y]);
-					buildLabyrinth(cellArray[x][y]);
-				}
-			}
-		}
+		multipleWays();
 	}
 	
 	private void buildLabyrinth(Cell currentCell) {
@@ -83,6 +80,66 @@ public class Labyrinth {
 					graph.addVertex(cellArray[currentX-1][currentY]);
 					graph.addEdge(currentCell, cellArray[currentX-1][currentY]);
 					buildLabyrinth(cellArray[currentX-1][currentY]);
+				}
+			}
+		}
+		/*
+		 * Pour être sûr qu'on ne laisse aucune cellule non créée ou
+		 * non reliée au reste du graph, on vérifie pour toutes les
+		 * directions.
+		 */
+		if(currentY-1 >= 0 && !graph.containsVertex(cellArray[currentX][currentY-1])) {
+			graph.addVertex(cellArray[currentX][currentY-1]);
+			graph.addEdge(currentCell, cellArray[currentX][currentY-1]);
+			buildLabyrinth(cellArray[currentX][currentY-1]);
+		}
+		if(currentX+1 < sizeX && !graph.containsVertex(cellArray[currentX+1][currentY])) {
+			graph.addVertex(cellArray[currentX+1][currentY]);
+			graph.addEdge(currentCell, cellArray[currentX+1][currentY]);
+			buildLabyrinth(cellArray[currentX+1][currentY]);
+		}
+		if(currentY+1 < sizeY && !graph.containsVertex(cellArray[currentX][currentY+1])){
+			graph.addVertex(cellArray[currentX][currentY+1]);
+			graph.addEdge(currentCell, cellArray[currentX][currentY+1]);
+			buildLabyrinth(cellArray[currentX][currentY+1]);
+		}
+		if(currentX-1 >= 0 && !graph.containsVertex(cellArray[currentX-1][currentY])) {
+			graph.addVertex(cellArray[currentX-1][currentY]);
+			graph.addEdge(currentCell, cellArray[currentX-1][currentY]);
+			buildLabyrinth(cellArray[currentX-1][currentY]);
+		}
+	}
+	/**
+	 * Permet de rajouter plusieurs chemins au labyrinthe,
+	 * boucle simplement sur des cellules aléatoires en essayant
+	 * de créer des chemins supplémentaires.
+	 */
+	public void multipleWays() {
+		int x;
+		int y;
+		int x2;
+		int y2;
+		int dir;
+		for(int i=0; i<100; i++) {
+			x = (int) (Math.random()*sizeX);
+			y = (int) (Math.random()*sizeY);
+			dir = (int) (Math.random()*4);
+			if(dir == 0) {
+				x2 = x + 1;
+				y2 = y;
+			}else if(dir == 1) {
+				x2 = x - 1;
+				y2 = y;
+			}else if(dir == 2) {
+				x2 = x;
+				y2 = y + 1;
+			}else { 
+				x2 = x;
+				y2 = y - 1;
+			}
+			if(x2 < sizeX && x2 >= 0 && y2 < sizeY && y2 >= 0) {
+				if (!graph.containsEdge(cellArray[x][y], cellArray[x2][y2])) {
+					graph.addEdge(cellArray[x][y], cellArray[x2][y2]);
 				}
 			}
 		}
