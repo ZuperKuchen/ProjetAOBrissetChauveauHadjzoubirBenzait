@@ -33,7 +33,8 @@ public class RunGame {
 					//Player
 					playerControl.movePlayer();
 					//Monsters
-					//TODO
+					currentLevel.getMonsters().forEach(Monster -> Monster.move(currentLevel));
+					view.updateMonsters();
 					//Detection des collisions
 					Event event = ItemCollision.collision(currentLevel);
 					System.out.println(event);
@@ -43,6 +44,7 @@ public class RunGame {
 						view.updateItems();
 						break;						
 					case LOSE_GAME:
+						
 						break;
 					case NEXT_LEVEL:
 						break;

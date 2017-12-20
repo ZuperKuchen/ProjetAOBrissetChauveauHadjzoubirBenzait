@@ -214,6 +214,9 @@ public class ViewFrame extends Stage{
 		this.items.forEach(FixedSprite -> FixedSprite.update());
 	}
 	
+	public void updateMonsters() {
+		this.monsters.forEach(MovingSprite-> MovingSprite.update());
+	}
 	
 	
 	
