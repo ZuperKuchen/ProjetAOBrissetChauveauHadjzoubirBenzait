@@ -7,6 +7,9 @@ import model.Edge.Type;
 import model.Fixed;
 import model.Level;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jgrapht.Graph;
 
 
@@ -31,8 +34,8 @@ public class ViewFrame extends Stage{
 	private ViewPlayer player;
 	private MovingSprite exit;  //View
 	
-	private FixedSprite[] items;
-	private MovingSprite[] monsters;
+	private List<FixedSprite> items;
+	private List<MovingSprite> monsters;
 	//TO ADD OTHER VIEW
 	
 	/*private static ViewFrame INSTANCE = new ViewFrame();
@@ -52,15 +55,17 @@ public class ViewFrame extends Stage{
 		this.pane = new Pane();
 		this.player = ViewPlayer.getInstance(this);
 		this.exit = new MovingSprite(this,lvl.getExit(),Sprite.DOOR_SPRITE); // TO MODIFY
-		/*
+		this.items = new ArrayList<>();
+		this.monsters = new ArrayList<>();
+		
 		//Les monstres
-		for (int i=0 ; i < lvl.getMonsters().length ; i++) {
-			this.monsters[i] = new MovingSprite(this, lvl.getMonsters()[i],Sprite.BAD_SPRITE);
+		for (int i=0 ; i < lvl.getMonsters().size() ; i++) {
+			this.monsters.add(i, new MovingSprite(this, lvl.getMonsters().get(i),Sprite.BAD_SPRITE)); 
 		}
 		//Les Items
 		int nbCandy = 0;
-		for (int i=0 ; i < lvl.getFixedItems().length ; i++) {
-			Fixed item = lvl.getFixedItems()[i];
+		for (int i=0 ; i < lvl.getFixedItems().size() ; i++) {
+			Fixed item = lvl.getFixedItems().get(i);
 			String imgpath = null;
 			switch (item.getName()) {
 			case CANDY:
@@ -87,9 +92,9 @@ public class ViewFrame extends Stage{
 				System.out.println(" PAS POSSIBLE VIEWFRAME CONSTRUCTOR");
 				return;
 			}
-			this.items[i] = new FixedSprite(this, item, imgpath);
+			this.items.add(i, new FixedSprite(this, lvl.getFixedItems().get(i), imgpath));
 		}
-		*/
+		
 	}
 	
 	public Level getLvl() {
@@ -158,7 +163,6 @@ public class ViewFrame extends Stage{
 	}
 	
 	public void drawLabyrinth() {
-		//stage.setScene(scene);
 		//On parcourt la grille de jeu ligne par ligne depuis le coin supérieur gauche
 		//Pour chaque cell, on vérifie  si il existe un chemin vers l'est et vers le sud auquel cas on ne dessine pas
 		Graph<Cell,Edge> graph = this.lvl.getLab().getGraph();
@@ -199,8 +203,10 @@ public class ViewFrame extends Stage{
 				}
 			}
 		}
-		player.initView();
-		exit.initView();
+		this.player.initView();
+		this.exit.initView();
+		this.items.forEach(FixedSprite-> FixedSprite.initView());
+		this.monsters.forEach(MovingSprite -> MovingSprite.initView());
 		//TO ADD other initView 
 	}
 

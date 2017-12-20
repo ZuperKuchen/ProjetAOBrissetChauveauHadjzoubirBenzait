@@ -54,16 +54,16 @@ public class ItemCollision {
 			event = whichEvent(itemArray.getExit());
 			return itemArray.getExit();
 		}
-		for(int i = 0; i < itemArray.getFixedItems().length; i++) {
-			if(sameCell(itemArray.getPlayer(),itemArray.getFixedItems()[i])) {
-				event = whichEvent(itemArray.getFixedItems()[i]);
-				return itemArray.getFixedItems()[i];
+		for(int i = 0; i < itemArray.getFixedItems().size(); i++) {
+			if(sameCell(itemArray.getPlayer(),itemArray.getFixedItems().get(i))) {
+				event = whichEvent(itemArray.getFixedItems().get(i));
+				return itemArray.getFixedItems().get(i);
 			}
 		}
-		for(int i = 0; i < itemArray.getMonsters().length; i++) {
-			if(sameCell(itemArray.getPlayer(),itemArray.getMonsters()[i])) {
-				event = whichEvent(itemArray.getMonsters()[i]);
-				return itemArray.getMonsters()[i];
+		for(int i = 0; i < itemArray.getMonsters().size(); i++) {
+			if(sameCell(itemArray.getPlayer(),itemArray.getMonsters().get(i))) {
+				event = whichEvent(itemArray.getMonsters().get(i));
+				return itemArray.getMonsters().get(i);
 			}
 		}
 		return null;

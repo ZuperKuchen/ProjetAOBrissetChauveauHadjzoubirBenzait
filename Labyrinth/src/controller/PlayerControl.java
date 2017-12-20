@@ -27,6 +27,7 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 		this.lab = currentLevel.getLab();
 		this.lab_graph = currentLevel.getLab().getGraph();
 		this.viewP = ViewPlayer.getInstance();
+		this.actualDir = DIR.EAST;
 	}
 
 	private boolean can_move(int x,int y,DIR dir) {
@@ -79,9 +80,10 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 			default:
 				break;
 			}
-			viewP.update();
+			
 		}
-		else System.out.println(" NON");
+		viewP.update();
+		System.out.println(this.actualDir.toString());
 	}
 
 	public void handle(KeyEvent event) {
@@ -116,7 +118,7 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 		default:
 			break;
 		}
-		if(can_move(this.player.getX(),this.player.getY(),this.actualDir)) {
+		if(can_move(this.player.getX(),this.player.getY(),tmpDir)) {
 			this.actualDir = tmpDir;
 		}
 	}

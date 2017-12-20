@@ -28,7 +28,7 @@ public abstract class Sprite implements ISprite{
 		this.view = view;
 	}
 	
-	ViewFrame getView() {
+	public ViewFrame getView() {
 		return this.view;
 	}
 	

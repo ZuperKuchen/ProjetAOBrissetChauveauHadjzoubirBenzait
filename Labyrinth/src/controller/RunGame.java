@@ -1,14 +1,9 @@
 package controller;
 
 import controller.ItemCollision.Event;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
+import javafx.animation.AnimationTimer;
 import model.Level;
 import view.ViewFrame;
-import view.ViewPlayer;
 
 public class RunGame {
 	public static void run(int sizeX, int sizeY) {
@@ -17,24 +12,38 @@ public class RunGame {
 		Event event = Event.NEXT_LEVEL;
 		//TODO WHILE EVENT == NEXT_LEVEL
 			runLevel(difficulty, sizeX, sizeY);
-			difficulty ++;
-		
+			difficulty ++;		
 	}
+	
 	private static void runLevel(int difficulty, int sizeX, int sizeY) {
+		System.out.println("Test 0");
 		Level currentLevel = new Level(difficulty, sizeX, sizeY);
-		
+		System.out.println("Test 1");
 		ViewFrame view = new ViewFrame(currentLevel);
 		view.show();
 		view.initFrame();
 		view.drawLabyrinth();
 		PlayerControl playerControl = new PlayerControl(currentLevel);
 		view.getScene().setOnKeyPressed(playerControl);
-		/*Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2500), playerControl.movePlayer() ));
-		Timeline test = new Tim
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-        */
-		System.out.print("\n");
+		System.out.println("Test 2");
+		AnimationTimer gameLoop = new AnimationTimer() {
+			private long lastUp = 0;
+			@Override
+			public void handle(long now) {
+				if(now - lastUp >= 250_000_000) {
+					// TODO Auto-generated method stub
+					//Player
+					playerControl.movePlayer();
+					//Monsters
+					//TODO
+					lastUp = now;
+				}
+			}
+		};
+		
+		gameLoop.start();
+		
+		//System.out.print("\n");
 		//System.out.print("Je boucle bien salement\n");
 		
 		/*while(true) {
