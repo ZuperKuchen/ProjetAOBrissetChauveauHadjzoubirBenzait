@@ -1,5 +1,6 @@
 package controller;
 
+
 import model.Item;
 import model.Level;
 import model.Fixed;
@@ -21,17 +22,17 @@ public class ItemCollision {
 	
 	private static Event whichEvent(Item item) {					//Détermine quel évènement découle de la collision
 		String itemName = item.getClass().getName();				//en cours
-		if(itemName == "Player") {
+		if(itemName == model.Player.class.getName()) {
 			return Event.NOTHING;
 		}
 
-		if(itemName == "Exit") {
+		if(itemName == model.Exit.class.getName()) {
 			return Event.NEXT_LEVEL;
 		}
-		else if(itemName == "Monster") {
+		else if(itemName == model.Monster.class.getName()) {
 			return Event.LOSE_GAME;
 		}
-		else if(itemName == "Fixed") {
+		else if(itemName == model.Fixed.class.getName()) {
 			if(!((Fixed) item).getState()) {
 				return Event.NOTHING;
 			}
@@ -46,52 +47,27 @@ public class ItemCollision {
 		
 	}
 	
-	private static Item run(Level itemArray, Event event) {			//Parcours les items et détermine la collision
+	public static Event collision(Level itemArray) {			//Parcours les items et détermine la collision
 																	//s'il y en a une. Renvoie l'objet concerné.
-		itemArray.getPlayer();
-		itemArray.getExit();
 		if(sameCell(itemArray.getPlayer(),itemArray.getExit())) {
-			event = whichEvent(itemArray.getExit());
-			return itemArray.getExit();
+			return whichEvent(itemArray.getExit());
 		}
 		for(int i = 0; i < itemArray.getFixedItems().size(); i++) {
 			if(sameCell(itemArray.getPlayer(),itemArray.getFixedItems().get(i))) {
-				event = whichEvent(itemArray.getFixedItems().get(i));
-				return itemArray.getFixedItems().get(i);
+				System.out.println("Que Voila?");
+				Event event =  whichEvent(itemArray.getFixedItems().get(i));	
+				itemArray.getFixedItems().get(i).turnOff();
+				return event;
 			}
 		}
 		for(int i = 0; i < itemArray.getMonsters().size(); i++) {
 			if(sameCell(itemArray.getPlayer(),itemArray.getMonsters().get(i))) {
-				event = whichEvent(itemArray.getMonsters().get(i));
-				return itemArray.getMonsters().get(i);
+				return whichEvent(itemArray.getMonsters().get(i));
 			}
 		}
-		return null;
+		return Event.NOTHING;
 	}
-	public static Event collision(Level currentGame) {
-		Event event = Event.NOTHING;
-		Item item = run(currentGame, event);
-		
-		/*
-		 * Ici nous gérons l'interaction avec l'objet concerné par la collision.
-		 */
-		if(event == Event.GET_CANDY) {
-			((Fixed) item).turnOff();
-			event = Event.NOTHING;
-		}
-		if(event == Event.OPEN_DOOR) {
-			((Fixed) item).turnOff();
-			//TODO Gérer l'ouverture de portes, qui doivent être définies dans Labyrinth (je pense)
-			event = Event.NOTHING;
-		}
-		
-		/*
-		 * L'évènement que l'on retourne est soit NOTHING, soit LOSE soit NEXT
-		 * il doit donc être récupéré par le controller pour savoir quoi
-		 * exécuter ensuite.
-		 */
-		return event;
-	}
+	
 }
 
 

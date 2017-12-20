@@ -32,7 +32,7 @@ public class ViewFrame extends Stage{
 	private Pane pane;
 	
 	private ViewPlayer player;
-	private MovingSprite exit;  //View
+	private MovingSprite exit;
 	
 	private List<FixedSprite> items;
 	private List<MovingSprite> monsters;
@@ -210,7 +210,9 @@ public class ViewFrame extends Stage{
 		//TO ADD other initView 
 	}
 
-
+	public void updateItems() {
+		this.items.forEach(FixedSprite -> FixedSprite.update());
+	}
 	
 	
 	

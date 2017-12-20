@@ -6,8 +6,8 @@ import model.Level;
 import view.ViewFrame;
 
 public class RunGame {
+	
 	public static void run(int sizeX, int sizeY) {
-		
 		int difficulty = 0;
 		Event event = Event.NEXT_LEVEL;
 		//TODO WHILE EVENT == NEXT_LEVEL
@@ -16,26 +16,43 @@ public class RunGame {
 	}
 	
 	private static void runLevel(int difficulty, int sizeX, int sizeY) {
-		System.out.println("Test 0");
 		Level currentLevel = new Level(difficulty, sizeX, sizeY);
-		System.out.println("Test 1");
 		ViewFrame view = new ViewFrame(currentLevel);
 		view.show();
 		view.initFrame();
 		view.drawLabyrinth();
 		PlayerControl playerControl = new PlayerControl(currentLevel);
 		view.getScene().setOnKeyPressed(playerControl);
-		System.out.println("Test 2");
 		AnimationTimer gameLoop = new AnimationTimer() {
+			
 			private long lastUp = 0;
 			@Override
 			public void handle(long now) {
-				if(now - lastUp >= 250_000_000) {
+				if(now - lastUp >= 350_000_000) {
 					// TODO Auto-generated method stub
 					//Player
 					playerControl.movePlayer();
 					//Monsters
 					//TODO
+					//Detection des collisions
+					Event event = ItemCollision.collision(currentLevel);
+					System.out.println(event);
+					switch(event) {
+					case GET_CANDY:
+						System.out.println("Une belle Collision");
+						view.updateItems();
+						break;						
+					case LOSE_GAME:
+						break;
+					case NEXT_LEVEL:
+						break;
+					case OPEN_DOOR:
+						break;
+					case NOTHING:
+						break;
+					default:
+						break;
+					}
 					lastUp = now;
 				}
 			}

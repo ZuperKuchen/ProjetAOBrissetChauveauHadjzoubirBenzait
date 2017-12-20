@@ -27,7 +27,7 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 		this.lab = currentLevel.getLab();
 		this.lab_graph = currentLevel.getLab().getGraph();
 		this.viewP = ViewPlayer.getInstance();
-		this.actualDir = DIR.EAST;
+		this.actualDir = DIR.NORTH;
 	}
 
 	private boolean can_move(int x,int y,DIR dir) {
@@ -54,7 +54,7 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 				next_x >= 0 && next_x < X  && next_y >= 0 && next_y < Y) {
 			if(this.lab_graph.containsEdge(this.lab.getCellArray()[x][y], this.lab.getCellArray()[next_x][next_y])){
 				if(this.lab_graph.getEdge(this.lab.getCellArray()[x][y], this.lab.getCellArray()[next_x][next_y]).getType() != Edge.Type.CLOSED_DOOR) {
-					System.out.println("(x,y): " + x+" "+y +"(nx,ny):" + next_x +" "+ next_y);
+					//System.out.println("(x,y): " + x+" "+y +"(nx,ny):" + next_x +" "+ next_y);
 					return true;
 				}
 			}
@@ -83,33 +83,26 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 			
 		}
 		viewP.update();
-		System.out.println(this.actualDir.toString());
 	}
 
 	public void handle(KeyEvent event) {
 		DIR tmpDir = this.actualDir;
 		switch(event.getCode()) {
-		case B:
-			System.out.println("SERIEUX?!");
 		case D:
 		case RIGHT:
 			tmpDir = DIR.EAST;
-			System.out.println("EAST");	
 			break;
 		case Q:
 		case LEFT:
 			tmpDir = DIR.WEST;
-			System.out.println("WEST");	
 			break;
 		case Z:
 		case UP:
 			tmpDir = DIR.NORTH;
-			System.out.println("NORTH");	
 			break;
 		case S:
 		case DOWN:
 			tmpDir = DIR.SOUTH;
-			System.out.println("SOUTH");
 			break;
 		case ESCAPE:
 			//this.viewP.deleteView();
