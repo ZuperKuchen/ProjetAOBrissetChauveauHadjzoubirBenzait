@@ -6,9 +6,10 @@ import model.Level;
 import view.ViewFrame;
 
 public class RunGame {
-	
+	static int difficulty = 0;
+
 	public static void run(int sizeX, int sizeY) {
-		int difficulty = 0;
+		//int difficulty = 0;
 		Event event = Event.NEXT_LEVEL;
 		//TODO WHILE EVENT == NEXT_LEVEL
 			runLevel(difficulty, sizeX, sizeY);
@@ -37,16 +38,16 @@ public class RunGame {
 					view.updateMonsters();
 					//Detection des collisions
 					Event event = ItemCollision.collision(currentLevel);
-					System.out.println(event);
 					switch(event) {
 					case GET_CANDY:
-						System.out.println("Une belle Collision");
 						view.updateItems();
 						break;						
 					case LOSE_GAME:
-						
+						stop();
 						break;
 					case NEXT_LEVEL:
+						stop();
+						//run(16,16);
 						break;
 					case OPEN_DOOR:
 						break;
@@ -61,7 +62,7 @@ public class RunGame {
 		};
 		
 		gameLoop.start();
-		
+		System.out.println("HEHE");
 		//System.out.print("\n");
 		//System.out.print("Je boucle bien salement\n");
 		

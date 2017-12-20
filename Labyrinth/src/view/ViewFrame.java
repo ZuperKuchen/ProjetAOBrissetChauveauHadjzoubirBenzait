@@ -218,6 +218,9 @@ public class ViewFrame extends Stage{
 		this.monsters.forEach(MovingSprite-> MovingSprite.update());
 	}
 	
+	public void ResetFrame() {
+		//ToDO
+	}
 	
 	
 }
