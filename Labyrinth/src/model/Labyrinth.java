@@ -1,6 +1,11 @@
 package model;
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 import org.jgrapht.*;
 import org.jgrapht.graph.*;
+
+import model.Edge.Type;
 /**
  * La classe Labyrinth génère automatiquement un labyrinth quand elle est instanciée. 
  * Un objet Labyrinth contient le graph, le tableau des cellules.
@@ -143,6 +148,65 @@ public class Labyrinth {
 				}
 			}
 		}
+	}
+	public enum Direction{
+		NORTH,
+		SOUTH,
+		EAST,
+		WEST;
+	};
+	
+	public Cell mayGo(Direction dir, Cell cell) {
+		int wantedX = cell.getX();
+		int wantedY = cell.getY();
+		if(dir == Direction.NORTH) {
+			wantedY = cell.getY() - 1;
+		}else if(dir == Direction.SOUTH) {
+			wantedY = cell.getY() + 1;
+		}else if(dir == Direction.EAST) {
+			wantedX = cell.getX() + 1;
+		}else{
+			wantedX = cell.getX() - 1;
+		}if(wantedX < 0 || wantedX >= sizeX || wantedY < 0 || wantedY >= sizeY) {
+			return null;
+		}else {
+			if(graph.containsEdge(cell, cellArray[wantedX][wantedY])) {
+				if(graph.getEdge(cell, cellArray[wantedX][wantedY]).getType() != Type.CLOSED_DOOR) {
+					return cellArray[wantedX][wantedY];
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * On implémente ici l'algorithme de Manhattan car il
+	 * a directement accès au graph concerné.
+	 * @param La cell source, et la cell target 
+	 */
+	public void manhattan(Cell source, Cell target) {
+		Queue<Cell> fifo = new ArrayDeque<Cell>();
+		target.setMark(1);
+		fifo.add(target);
+		while(!fifo.isEmpty()) {
+			Cell actual = fifo.remove();
+			for(Direction dir : Direction.values()) {
+				Cell next = this.mayGo(dir, actual);
+				if(next != null) {
+					if(next.getMark() == 0) {
+						next.setMark(actual.getMark() +1);;
+						if(next != source) {
+							fifo.add(next);
+						}
+					}
+				}
+			}
+		}
+	}
+	public void launchManhattan(Cell source, Cell target) {
+		for(Cell cell : graph.vertexSet())
+			cell.setMark(0);;
+		manhattan(source, target);
 	}
 	
 	
