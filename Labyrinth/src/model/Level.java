@@ -33,10 +33,16 @@ public class Level {
 
 	private void itemsGenerator() {
 		player = Player.getInstance(0, 0);								//TODO
-		//exit = Exit.getInstance(3, 3); //just for test
 		exit = Exit.getInstance(lab.getSizeX()-1, lab.getSizeY()-1);
-		fixedItems.add(0, new Fixed(3, 3, true, Name.CANDY));
-		monsters.add(0, new Monster(5, 5));
+		
+		for(int i = 0; i < difficulty; i++) {
+			int randomX = (int)(Math.random()*lab.getSizeX());
+			int randomY = (int)(Math.random()*lab.getSizeY());
+			fixedItems.add(0, new Fixed(randomX, randomY, true, Name.CANDY));
+			randomX = (int)(Math.random()*lab.getSizeX()/2 + lab.getSizeX()/2);
+			randomY = (int)(Math.random()*lab.getSizeY()/2 + lab.getSizeY()/2);
+			monsters.add(0, new Monster(randomX, randomY));
+		}
 	}
 
 	public Labyrinth getLab() {
