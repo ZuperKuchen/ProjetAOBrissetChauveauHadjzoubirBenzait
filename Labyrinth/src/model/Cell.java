@@ -7,21 +7,30 @@ package model;
  * @param x, y
  * 			Coordonnées
  * 
- * @author piechauveau
  *
  */
 public class Cell {
 	private int x;
 	private int y;
+	private int mark;
 	
 	public Cell(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.mark = 0;
 	}
 	
 	public Cell() {
 		this.x = 0;
 		this.y = 0;
+	}
+	
+	public void setMark(int mark) {
+		this.mark = mark;
+	}
+	
+	public int getMark() {
+		return this.mark;
 	}
 
 	public int getX() {
