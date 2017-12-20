@@ -22,6 +22,12 @@ public abstract class Sprite implements ISprite{
 	
 	public abstract void update();
 	
+	/**
+	 * Class Constructor. Initialize attributes.
+	 * @param view the stage where this sprite need to be display
+	 * @param item the item corresponding to this sprite in the model
+	 * @param imgPath the filename of this sprite
+	 */
 	public Sprite(ViewFrame view, Item item, String imgPath) {
 		this.item = item;
 		this.imageView = new ImageView(new Image(imgPath));

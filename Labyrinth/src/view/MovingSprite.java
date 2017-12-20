@@ -9,13 +9,12 @@ public class MovingSprite extends Sprite{
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Display this sprite according to its coordinates
+	 */
 	public void update() {
 		int x = item.getX();
 		int y = item.getY();
-		if (x < 0 || y < 0){
-			this.deleteView();
-			return;
-		}
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		this.imageView.setX(xt);

@@ -17,7 +17,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * Principal class of the package. Manages all the sprite to display
+ * Asks all the needed informations to its attribute lvl.
+ */
 public class ViewFrame extends Stage{
 	
 	static final int SPAN = 4;
@@ -28,27 +31,18 @@ public class ViewFrame extends Stage{
 	public static final Paint CLOSED_DOOR_COLOR = Color.BLACK;
 	public static final Paint OPENED_DOOR_COLOR = Color.BROWN;
 	
+	
 	private Level lvl;
 	private Pane pane;
-	
 	private ViewPlayer player;
 	private MovingSprite exit;
-	
 	private List<FixedSprite> items;
 	private List<MovingSprite> monsters;
-	//TO ADD OTHER VIEW
 	
-	/*private static ViewFrame INSTANCE = new ViewFrame();
-	
-	private ViewFrame() {
-		super();
-		this.pane = new Pane();
-	}
-	
-	public static ViewFrame getInstance() {
-		return INSTANCE;
-	}
-*/
+	/**
+	 * Class Constructor.
+	 * @param lvl model to read
+	 */
 	public ViewFrame(Level lvl) {
 		super();
 		this.lvl = lvl;
@@ -105,6 +99,9 @@ public class ViewFrame extends Stage{
 		return pane;
 	}
 	
+	/**
+	 * Display the base of the game board (side walls & tiles intersection)
+	 */
 	public void initFrame() {
 		int nbX = this.lvl.getLab().getSizeX();
 		int nbY = this.lvl.getLab().getSizeY();
@@ -139,7 +136,10 @@ public class ViewFrame extends Stage{
 		}
 	}
 	
-	
+	/**
+	 * Draw a line between two tiles intersection
+	 * @param color Paint to use
+	 */
 	public void drawWall(int xs, int ys, int xt, int yt, Paint color) {
 		int x = 0, y = 0, xspan = 0, yspan = 0;
 		if(ys == yt) {
@@ -162,6 +162,9 @@ public class ViewFrame extends Stage{
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void drawLabyrinth() {
 		//On parcourt la grille de jeu ligne par ligne depuis le coin supérieur gauche
 		//Pour chaque cell, on vérifie  si il existe un chemin vers l'est et vers le sud auquel cas on ne dessine pas
@@ -209,18 +212,19 @@ public class ViewFrame extends Stage{
 		this.monsters.forEach(MovingSprite -> MovingSprite.initView());
 		//TO ADD other initView 
 	}
-
+	
+	/**
+	 * Call the update method of <b> ISprite <\b> for every Fixed Items (candy & switch)
+	 */
 	public void updateItems() {
 		this.items.forEach(FixedSprite -> FixedSprite.update());
 	}
 	
+	/**
+	 * Call the update method of <b> ISprite <\b> for every enemies
+	 */
 	public void updateMonsters() {
 		this.monsters.forEach(MovingSprite-> MovingSprite.update());
 	}
-	
-	public void ResetFrame() {
-		//ToDO
-	}
-	
 	
 }

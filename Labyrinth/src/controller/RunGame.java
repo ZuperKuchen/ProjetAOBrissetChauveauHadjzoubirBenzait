@@ -12,8 +12,12 @@ public class RunGame {
 		//int difficulty = 0;
 		Event event = Event.NEXT_LEVEL;
 		//TODO WHILE EVENT == NEXT_LEVEL
-			runLevel(difficulty, sizeX, sizeY);
-			difficulty ++;		
+			runLevel(difficulty++, sizeX, sizeY);
+			System.out.println("I returned from runLevel");
+	}
+	
+	public static void newGame() {
+		
 	}
 	
 	private static void runLevel(int difficulty, int sizeX, int sizeY) {
@@ -47,7 +51,9 @@ public class RunGame {
 						break;
 					case NEXT_LEVEL:
 						stop();
-						//run(16,16);
+						view.close();
+						System.out.println("Let me try");
+						//newGame();
 						break;
 					case OPEN_DOOR:
 						break;
@@ -62,18 +68,6 @@ public class RunGame {
 		};
 		
 		gameLoop.start();
-		System.out.println("HEHE");
-		//System.out.print("\n");
-		//System.out.print("Je boucle bien salement\n");
-		
-		/*while(true) {
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			System.out.print("Je boucle bien salement\n");
-			view.show();
-		}*/
+		System.out.println("plz let me out ");
 	}
 }
