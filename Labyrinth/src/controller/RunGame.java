@@ -3,7 +3,6 @@ package controller;
 import controller.ItemCollision.Event;
 import javafx.animation.AnimationTimer;
 import model.Level;
-import model.Player;
 import view.ViewFrame;
 /**
  * Main controller class

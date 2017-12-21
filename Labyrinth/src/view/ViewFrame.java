@@ -18,7 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 /**
- * Principal class of the package. Manages all the sprite to display
+ * Principal class of the package. Manage all the sprite to display
  * Asks all the needed informations to its attribute lvl.
  */
 public class ViewFrame extends Stage{
