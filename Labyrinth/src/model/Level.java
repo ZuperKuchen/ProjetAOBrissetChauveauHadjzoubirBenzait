@@ -1,11 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-
 import model.Fixed.Name;
 
 public class Level {
@@ -18,7 +14,6 @@ public class Level {
 	
 	private List<Fixed> fixedItems;
 	private List<Monster> monsters;
-//use List.add(int index, E element) to add . Besoin de l'index pour view quoi que List.indexOf(Object o) existe
 	
 	
 	
@@ -32,8 +27,10 @@ public class Level {
 	}
 
 	private void itemsGenerator() {
-		player = Player.getInstance(0, 0);								//TODO
+		player = Player.getInstance(0,0);
+		resetPosPlayer(0, 0);
 		exit = Exit.getInstance(lab.getSizeX()-1, lab.getSizeY()-1);
+
 		
 		for(int i = 0; i < difficulty; i++) {
 			int randomX = (int)(Math.random()*lab.getSizeX());
@@ -67,5 +64,10 @@ public class Level {
 
 	public List<Monster> getMonsters() {
 		return monsters;
+	}
+	
+	private void resetPosPlayer(int x,int y){
+		this.player.setX(x);
+		this.player.setY(y);
 	}
 }
