@@ -1,7 +1,6 @@
 package view;
 
 import model.Fixed;
-import model.Item;
 
 public class FixedSprite extends Sprite{
 

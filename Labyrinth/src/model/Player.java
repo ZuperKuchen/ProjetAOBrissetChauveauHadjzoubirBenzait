@@ -20,4 +20,5 @@ public class Player extends Item{
 	public static Player getInstance() {
 		return INSTANCE;
 	}
+
 }

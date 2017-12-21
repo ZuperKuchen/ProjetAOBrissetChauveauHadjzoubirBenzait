@@ -42,6 +42,10 @@ public abstract class Sprite implements ISprite{
 		return imageView;
 	}
 		
+	public void setView(ViewFrame view) {
+		this.view  = view;
+	}
+	
 	public void deleteView() {
 		this.view.getPane().getChildren().remove(this.imageView);
 	}

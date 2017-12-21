@@ -5,9 +5,14 @@ import org.jgrapht.Graph;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import model.Player;
-import view.ViewFrame;
 import view.ViewPlayer;
 import model.*;
+
+/**
+ * This class handle the keyEvent
+ * 
+ *
+ */
 public class PlayerControl implements EventHandler<KeyEvent>{
 
 	enum DIR{SOUTH,NORTH,EAST,WEST};
@@ -30,6 +35,13 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 		this.actualDir = DIR.NORTH;
 	}
 
+	/**
+	 * 
+	 * @param x current x position of the player
+	 * @param y current y position of the player
+	 * @param dir the direction the player wants to go to
+	 * @return true is the player can move from the position (x,y) to the adjacent tiles according to dir, false otherwise.
+	 */
 	private boolean can_move(int x,int y,DIR dir) {
 		int next_x = x, next_y = y;
 		int X = this.lab.getSizeX(); //Max 
@@ -85,6 +97,9 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 		viewP.update();
 	}
 
+	/**
+	 * 
+	 */
 	public void handle(KeyEvent event) {
 		DIR tmpDir = this.actualDir;
 		switch(event.getCode()) {
@@ -105,9 +120,8 @@ public class PlayerControl implements EventHandler<KeyEvent>{
 			tmpDir = DIR.SOUTH;
 			break;
 		case ESCAPE:
-			//this.viewP.deleteView();
-			//ViewFrame.getInstance().getScene().setFill(ViewFrame.WALL_COLOR);
 			System.out.println("Wanna escape? \n");
+			viewP.getView().close();
 		default:
 			break;
 		}

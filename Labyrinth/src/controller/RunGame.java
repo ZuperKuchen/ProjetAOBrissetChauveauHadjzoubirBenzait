@@ -3,23 +3,27 @@ package controller;
 import controller.ItemCollision.Event;
 import javafx.animation.AnimationTimer;
 import model.Level;
+import model.Player;
 import view.ViewFrame;
-
+/**
+ * Main controller class
+ */
 public class RunGame {
-	static int difficulty = 0;
+	static int difficulty = 1;
+	final static int DIFF_MAX = 3; 
 
-	public static void run(int sizeX, int sizeY) {
-		//int difficulty = 0;
-		Event event = Event.NEXT_LEVEL;
-		//TODO WHILE EVENT == NEXT_LEVEL
-			runLevel(difficulty++, sizeX, sizeY);
-			System.out.println("I returned from runLevel");
+	public static synchronized void run(int sizeX, int sizeY) {
+		runLevel(difficulty++, sizeX, sizeY);
 	}
 	
-	public static void newGame() {
-		
-	}
-	
+	/**
+	 * Run a level by creating a model a view and starting the animationTimer.
+	 * If the player won the level, runLevel is called recursively until the player lose, quit or win the last level
+	 * of difficulty (DIFF_MAX)
+	 * @param difficulty the difficulty of the current level
+	 * @param sizeX	width of the game board
+	 * @param sizeY height of the game board
+	 */
 	private static void runLevel(int difficulty, int sizeX, int sizeY) {
 		Level currentLevel = new Level(difficulty, sizeX, sizeY);
 		ViewFrame view = new ViewFrame(currentLevel);
@@ -34,7 +38,6 @@ public class RunGame {
 			@Override
 			public void handle(long now) {
 				if(now - lastUp >= 350_000_000) {
-					// TODO Auto-generated method stub
 					//Player
 					playerControl.movePlayer();
 					//Monsters
@@ -52,8 +55,9 @@ public class RunGame {
 					case NEXT_LEVEL:
 						stop();
 						view.close();
-						System.out.println("Let me try");
-						//newGame();
+						view.removePlayerView();
+						if (RunGame.difficulty <= RunGame.DIFF_MAX)
+							runLevel(RunGame.difficulty++, sizeX, sizeY);
 						break;
 					case OPEN_DOOR:
 						break;
@@ -68,6 +72,5 @@ public class RunGame {
 		};
 		
 		gameLoop.start();
-		System.out.println("plz let me out ");
 	}
 }

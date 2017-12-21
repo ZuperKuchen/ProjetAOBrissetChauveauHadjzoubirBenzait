@@ -48,6 +48,7 @@ public class ViewFrame extends Stage{
 		this.lvl = lvl;
 		this.pane = new Pane();
 		this.player = ViewPlayer.getInstance(this);
+		this.player.setView(this);
 		this.exit = new MovingSprite(this,lvl.getExit(),Sprite.DOOR_SPRITE); // TO MODIFY
 		this.items = new ArrayList<>();
 		this.monsters = new ArrayList<>();
@@ -207,6 +208,7 @@ public class ViewFrame extends Stage{
 			}
 		}
 		this.player.initView();
+		//this.player.update();
 		this.exit.initView();
 		this.items.forEach(FixedSprite-> FixedSprite.initView());
 		this.monsters.forEach(MovingSprite -> MovingSprite.initView());
@@ -225,6 +227,10 @@ public class ViewFrame extends Stage{
 	 */
 	public void updateMonsters() {
 		this.monsters.forEach(MovingSprite-> MovingSprite.update());
+	}
+	
+	public void removePlayerView() {
+		this.player.deleteView();
 	}
 	
 }
