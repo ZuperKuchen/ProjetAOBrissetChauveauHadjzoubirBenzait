@@ -6,15 +6,17 @@ import model.Item;
 
 public abstract class Sprite implements ISprite{
 
-	static final String PLAYER_SPRITE = "file:img/player.png";
-	static final String BAD_SPRITE = "file:img/bad.png";
-	static final String BUTT_CLOSE_SPRITE = "file:img/button_close.png";
-	static final String BUTT_OPEN_SPRITE = "file:img/button_open.png";
-	static final String DOOR_SPRITE = "file:img/door_open.png";
-	static final String CANDY1_SPRITE = "file:img/candy-1.png";
-	static final String CANDY2_SPRITE = "file:img/candy-2.png";
-	static final String CANDY3_SPRITE = "file:img/candy-3.png";
-	static final String CANDY4_SPRITE = "file:img/candy-4.png";
+
+	static final String PLAYER_SPRITE = "/player.png";
+	static final String BAD_SPRITE = "/bad.png";
+	static final String BUTT_CLOSE_SPRITE = "/button_close.png";
+	static final String BUTT_OPEN_SPRITE = "/button_open.png";
+	static final String DOOR_SPRITE = "/door_open.png";
+	static final String CANDY1_SPRITE = "/candy-1.png";
+	static final String CANDY2_SPRITE = "/candy-2.png";
+	static final String CANDY3_SPRITE = "/candy-3.png";
+	static final String CANDY4_SPRITE = "/candy-4.png";
+	
 	
 	protected ImageView imageView;
 	protected Item item;
